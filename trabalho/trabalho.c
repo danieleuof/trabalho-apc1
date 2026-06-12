@@ -87,9 +87,35 @@ int main () {
                     }
                 }
                 break;
-
         case 4: printf("\n"); break;
-        case 5: printf("\n"); break;
+        case 5: 
+               if (total == 0) {
+                   printf("\n Nao ha registros cadastrados.\n");
+               } else {
+                    printf("\n Entre com o ID que deseja remover >  ");
+                    while (scanf("%d", &busca_id) != 1) {
+                       while (getchar() != '\n');
+                       printf("Entrada invalida: ");
+                    }
+                    indice = -1;
+                    for (i = 0; i < total; i++) {
+                        if (estoque[i].identificador == busca_id) { 
+                          indice = i;
+                          break; 
+                        }
+                    }
+                    if (indice == -1) {
+                       printf("Nao ha um registro para ID: %d.\n", busca_id);
+                    } else {
+                        for (i = indice; i < total - 1; i++) {
+                            estoque[i] = estoque[i + 1];
+                        }
+                        total--;
+                        printf("Registro de ID %d removido. Ainda restam %d registros.\n",
+                               busca_id, total);
+                    }
+               }
+               break;
         case 6: printf("\nSaindo do sistema... Ate logo!\n"); break;
         default: printf("Opcao invalida! Tente novamente.\n");
     }
