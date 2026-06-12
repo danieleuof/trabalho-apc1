@@ -1,6 +1,26 @@
 #include <stdio.h>
+#include <string.h>
+
+#define MAXIMO_REGISTROS 10
+#define TAMANHO_NOME      50
+#define TAMANHO_CATEGORIA 30
+
+typedef struct {
+    int    identificador;
+    char   nome[TAMANHO_NOME];
+    char   categoria[TAMANHO_CATEGORIA];
+    float  preco;
+    int    quantidade;
+} Produto;
+
 int main () {
+    Produto estoque[MAXIMO_REGISTROS];
+    int total = 0;
     int opcao = 0;
+    int busca_id = 0;
+    int indice = -1;
+    int i = 0;
+    
     do {
         printf("MENU PRINCIPAL\n");
         printf("1 - Cadastrar registro\n");
@@ -9,20 +29,70 @@ int main () {
         printf("4 - Atualizar registro\n");
         printf("5 - Remover registro\n");
         printf("6 - Sair\n");
+        printf("Registros: %d / %d\n", total, MAXIMO_REGISTROS);
         printf("Escolha uma opcao > ");
-        scanf("%i", &opcao);
-        while(getchar() != '\n');
+
+        if (scanf("%d", &opcao) != 1) {
+            while (getchar() != '\n');
+            opcao = -1;
+        }
 
     switch(opcao) {
         case 1: printf("\n"); break;
-        case 2: printf("\n"); break;
-        case 3: printf("\n"); break;
+        case 2: 
+               if (total == 0) {
+                 printf("\n Nao ha registros cadastrados.\n");
+                } else {
+                 printf("\nLISTA DE PRODUTOS \n");
+                 for (i = 0; i < total; i++) {
+                     printf("=================================\n");
+                     printf("ID: %d\n", estoque[i].identificador);
+                     printf("Nome: %s\n", estoque[i].nome);
+                     printf("Categoria: %s\n", estoque[i].categoria);
+                     printf("Preco: R$ %.2f\n", estoque[i].preco);
+                     printf("Quantidade: %d\n", estoque[i].quantidade);
+                 }
+                 printf("=================================\n");
+                 printf("Total: %d produto(s).\n", total);
+                }
+                break;
+        case 3: 
+               if (total == 0) {
+                   printf("\n Nao ha registros cadastrados.\n");
+                } else {
+                    printf("\n Entre com o ID unico > ");
+                    while (scanf("%d", &busca_id) != 1) {
+                        while (getchar() != '\n');
+                        printf("Entrada invalida: ");
+                    }
+                    indice = -1;
+                    for (i = 0; i < total; i++) {
+                        if (estoque[i].identificador == busca_id) {
+                            indice = i;
+                            break;
+                        }
+                    }
+                    if (indice == -1) {
+                        printf("Nao ha um registro para ID: %d.\n", busca_id);
+                    } else {
+                        printf("\n==========================\n");
+                        printf("    PRODUTO ENCONTRADO\n");
+                        printf("==========================\n");
+                        printf("ID Unico  : %d\n", estoque[indice].identificador);
+                        printf("Nome      : %s\n", estoque[indice].nome);
+                        printf("Categoria : %s\n", estoque[indice].categoria);
+                        printf("Preco     : R$ %.2f\n", estoque[indice].preco);
+                        printf("Quantidade: %d\n", estoque[indice].quantidade);
+                        printf("==========================\n");
+                    }
+                }
+                break;
+
         case 4: printf("\n"); break;
         case 5: printf("\n"); break;
         case 6: printf("\nSaindo do sistema... Ate logo!\n"); break;
         default: printf("Opcao invalida! Tente novamente.\n");
     }
-    
     } while (opcao != 6);
 
     return 0;
