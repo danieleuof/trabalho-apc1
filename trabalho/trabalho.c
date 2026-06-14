@@ -28,7 +28,9 @@ int main () {
     int identificadorrepetido = 0;
     
     do {
-        printf("MENU PRINCIPAL\n");
+        printf("=================================\n");
+        printf("         MENU PRINCIPAL\n");
+        printf("=================================\n");
         printf("1 - Cadastrar registro\n");
         printf("2 - Listar registros\n");
         printf("3 - Buscar registro pelo identificador unico\n");
@@ -48,6 +50,7 @@ int main () {
             if (total >= MAXIMO_REGISTROS) {
                 printf("Estoque cheio! O sistema ja possui %d registros.\n", MAXIMO_REGISTROS);
             } else {
+                printf("=================================");
                 printf("\n       CADASTRO DE PRODUTO\n");
                 printf("=================================\n");
                 printf("Entre com um identificador unico para o registro > ");
@@ -87,7 +90,7 @@ int main () {
                         while (getchar() != '\n');
                         printf("Entrada invalida. Entre com um preco maior ou igual a 0. ");
                     }
-                    printf("  Quantidade em estoque: ");
+                    printf("Entre com a quantidade em estoque: ");
                     while (scanf("%d", &novaquantidade) != 1 || novaquantidade < 0) {
                         while (getchar() != '\n');
                         printf("Entrada invalida. Entre com uma quantidade maior ou igual a 0. ");
@@ -110,6 +113,7 @@ int main () {
             if (total == 0) {
                 printf("\n Nao ha registros cadastrados.\n");
             } else {
+                printf("=================================\n");
                 printf("\nLISTA DE PRODUTOS \n");
                 for (i = 0; i < total; i++) {
                     printf("=================================\n");
@@ -150,7 +154,6 @@ int main () {
                     printf("Categoria : %s\n", estoque[indice].categoria);
                     printf("Preco     : R$ %.2f\n", estoque[indice].preco);
                     printf("Quantidade: %d\n", estoque[indice].quantidade);
-                    printf("==========================\n");
                 }
             }
             break;
@@ -210,9 +213,9 @@ int main () {
             break;
         case 5: 
             if (total == 0) {
-                printf("\n Nao ha registros cadastrados.\n");
+                printf("\nNao ha registros cadastrados.\n");
             } else {
-                printf("\n Entre com o ID que deseja remover >  ");
+                printf("\nEntre com o ID que deseja remover >  ");
                 while (scanf("%d", &busca_id) != 1 || busca_id <= 0) {
                    while (getchar() != '\n');
                    printf("Entrada invalida. Entre com um ID maior que 0 > ");
@@ -235,7 +238,9 @@ int main () {
                 }
             }
             break;
-        case 6: printf("\nSaindo do sistema... Ate logo!\n"); break;
+        case 6:
+            printf("Saindo do sistema... Ate logo!\n");
+            break;
         default: printf("Opcao invalida! Tente novamente.\n");
     }
     } while (opcao != 6);
