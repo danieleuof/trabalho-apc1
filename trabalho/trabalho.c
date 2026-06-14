@@ -87,7 +87,50 @@ int main () {
                     }
                 }
                 break;
-        case 4: printf("\n"); break;
+        case 4:
+               if (total == 0) {
+                printf("Nao ha registros cadastrados.\n");
+               } else {
+                printf("Entre com o ID unico do registro para atualiza-lo > ");
+                while (scanf("%d", &busca_id) != 1) {
+                    while (getchar() != '\n');
+                    printf("Entrada invalida: ");
+                }
+                indice = -1;
+                for (i = 0; i < total; i++) {
+                    if (estoque[i].identificador == busca_id) {
+                        indice = i;
+                        break;
+                    }
+                }
+                if (indice == -1) {
+                    printf("Nao ha um registro para ID: %d.\n", busca_id);
+                } else {
+                    while (getchar() != '\n');
+
+                    printf("Entre com um novo nome > ");
+                    fgets(estoque[indice].nome, TAMANHO_NOME, stdin);
+                    estoque[indice].nome[strcspn(estoque[indice].nome, "\n")] = '\0';
+
+                    printf("Entre com uma nova categoria > ");
+                    fgets(estoque[indice].categoria, TAMANHO_CATEGORIA, stdin);
+                    estoque[indice].categoria[strcspn(estoque[indice].categoria, "\n")] = '\0';
+
+                    printf("Entre com um novo preco > R$ ");
+                    while (scanf("%f", &estoque[indice].preco) || estoque[indice].preco < 0.0f) {
+                        while (getchar() != '\n');
+                        printf("Preco invalido. Entre com um preco maior ou igual a 0 > ");
+                    }
+
+                    printf("Entre com uma nova quantidade > ");
+                    while (scanf("%d", &estoque[indice].quantidade) != 1 || estoque[indice].quantidade < 0) {
+                        while (getchar() != '\n');
+                        printf("Quantidade invalida. Entre com uma quantidade maior ou igual a 0 > ");
+                    }
+                    
+                    printf("Registro de ID %d atualizado!\n", busca_id);
+                }
+               }
         case 5: 
                if (total == 0) {
                    printf("\n Nao ha registros cadastrados.\n");
